@@ -4,16 +4,16 @@ const formElement = document.querySelector('.popup__form');
 const editPopup = document.querySelector ('.popup');
 
 const popupInputUserName = document.querySelector('.popup__input_name');
-const popupInput0ccupation = document.querySelector('.popup__input_about');
+const popupInputJob = document.querySelector('.popup__input_about');
 
 const userNameElement = document.querySelector('.profile__title');
-const user0ccupationElement = document.querySelector('.profile__subtitle');
+const userJobElement = document.querySelector('.profile__subtitle');
 
 
 function handleFormOpen(evt) {
   editPopup.classList.add('popup__opened');
   popupInputUserName.value = userNameElement.textContent;
-  popupInput0ccupation.value = user0ccupationElement.textContent;
+  popupInputJob.value = userJobElement.textContent;
 };
 
 function handleFormClose(evt) {
@@ -23,7 +23,7 @@ function handleFormClose(evt) {
 function handleFormSubmit(evt) {
   evt.preventDefault();
   userNameElement.textContent = popupInputUserName.value;
-  user0ccupationElement.textContent = popupInput0ccupation.value;
+  userJobElement.textContent = popupInputJob.value;
   handleFormClose();
 };
 
