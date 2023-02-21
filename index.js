@@ -11,13 +11,13 @@ const userJobElement = document.querySelector('.profile__subtitle');
 
 
 function handleFormOpen(evt) {
-  editPopup.classList.add('popup__opened');
+  editPopup.classList.add('popup_opened');
   popupInputUserName.value = userNameElement.textContent;
   popupInputJob.value = userJobElement.textContent;
 };
 
 function handleFormClose(evt) {
-  editPopup.classList.remove('popup__opened');
+  editPopup.classList.remove('popup_opened');
 };
 
 function handleFormSubmit(evt) {
