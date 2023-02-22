@@ -1,6 +1,10 @@
 .profile__title {
   color: #fff;
+  max-width: 294px;
   margin: 0 auto 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-style: normal;

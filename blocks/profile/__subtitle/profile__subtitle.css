@@ -1,6 +1,9 @@
 .profile__subtitle {
   margin: 0;
   max-width: 336px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-style: normal;
