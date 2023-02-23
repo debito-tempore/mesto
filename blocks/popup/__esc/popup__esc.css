@@ -3,6 +3,7 @@
   width: 32px;
   height: 32px;
   border: none;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/popup_esc.svg);
   background-size: cover;
@@ -12,6 +13,7 @@
 }
 .popup__esc:hover {
   opacity: 0.6;
+  transition: opacity 1s ease;
 }
 @media screen and (max-width: 500px) {
   .popup__esc {
