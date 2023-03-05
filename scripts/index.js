@@ -1,5 +1,5 @@
 const profileForm = document.forms["edit-profile-form"];
-const elementForm = document.forms["add-element-form"];
+const cardForm = document.forms["add-element-form"];
 const nameInput = document.querySelector('[name="name"]');
 const jobInput = document.querySelector('[name="job"]');
 const userNameElement = document.querySelector('.profile__title');
@@ -59,13 +59,8 @@ const getCard = (card) => {
     openTitle.textContent = card.name;
     openImage.setAttribute('src', card.link);
     openImage.setAttribute('alt', card.alt);
-    openImagePopup();
+    openPopup(imagePopup);
   })
-
-  const openImagePopup = () => {
-    imagePopup.classList.add('popup_opened'); 
-  }
-  cardImage.addEventListener('click', openImagePopup);
  
   const trashButton = newCard.querySelector('.element__button-delete');
   trashButton.addEventListener('click', function() {
@@ -132,5 +127,5 @@ editButton.addEventListener('click', function() {
   nameInput.value = userNameElement.textContent;
   jobInput.value = userJobElement.textContent; 
 });
-elementForm.addEventListener('submit', handleElementFormSubmit);
+cardForm.addEventListener('submit', handleElementFormSubmit);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
