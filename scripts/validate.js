@@ -1,7 +1,7 @@
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
-  errorClassTemplate: '.popup__input_type_error_',
+  errorClassTemplate: '.popup__input-error_type_',
   activeErrorClass: 'popup__input-error_visible',
   submitButtonSelector: '.popup__save'
 }
