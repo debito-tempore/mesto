@@ -1,6 +1,6 @@
 .popup__input {
   padding: 0 0 8px;
-  margin: 0;
+  margin: 0 0 5px;
   font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-style: normal;
@@ -10,4 +10,7 @@
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   color: #000;
+}
+.popup__input:focus {
+  outline: none;
 }

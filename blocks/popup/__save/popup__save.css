@@ -2,7 +2,7 @@
   background: #000000;
   border: 0;
   border-radius: 2px;
-  margin: 48px auto 37px;
+  margin: 15px auto 37px;
   padding: 0;
   cursor: pointer;
   width: 358px;
@@ -19,6 +19,10 @@
 .popup__save:hover {
   opacity: 0.8;
   transition: opacity 1s ease;
+}
+.popup__save:disabled {
+  background: #E5E5E5;
+  cursor: default;
 }
 @media screen and (max-width: 500px) {
   .popup__save {

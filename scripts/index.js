@@ -13,6 +13,7 @@ const addButton = document.querySelector('.profile__add-button');
 const editPopup = document.querySelector('#edit-popup');
 const editButton = document.querySelector('.profile__edit-button');
 const closeButtons = document.querySelectorAll('.popup__esc');
+const popups = document.querySelectorAll('.popup');
 const placeInput = document.querySelector('[name="place"]');
 const linkInput = document.querySelector('[name="link"]');
 const initialCards = [
@@ -47,6 +48,7 @@ const initialCards = [
     alt: 'Фотография горного побережья байкала'
   }
 ];
+
 const getCard = (card) => {
   const newCard = document.querySelector('.element-template').content.cloneNode(true);
   const cardPlace = newCard.querySelector('.element__title');
@@ -54,7 +56,7 @@ const getCard = (card) => {
   cardPlace.textContent = card.name;
   cardImage.setAttribute('src', card.link);
   cardImage.setAttribute('alt', card.alt);
-  
+
   cardImage.addEventListener('click', function() {  
     openTitle.textContent = card.name;
     openImage.setAttribute('src', card.link);
@@ -88,7 +90,7 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-function handleElementFormSubmit (evt) { 
+function handleElementFormSubmit (evt) {
   evt.preventDefault();
   const userPlace = placeInput.value;
   const userLink = linkInput.value;
@@ -99,8 +101,10 @@ function handleElementFormSubmit (evt) {
     alt: userPlace
   }
   createCard(userCard);
-  evt.target.reset();  
+  evt.target.reset();
   closePopup(addPopup);
+  const saveButton = evt.target.querySelector('.popup__save');
+  saveButton.disabled = true;
 }
 
 function handleProfileFormSubmit (evt) {
@@ -108,16 +112,52 @@ function handleProfileFormSubmit (evt) {
   const userName = nameInput.value;
   const userJob = jobInput.value;
   userNameElement.textContent = userName;
-  userJobElement.textContent = userJob;   
+  userJobElement.textContent = userJob;
   closePopup(editPopup);
+}
+
+function resetCheckButtonSave(elem) {
+  if (elem.id === 'edit-popup') {
+    const savePopupButton = elem.querySelector('.popup__save')
+    savePopupButton.disabled = false;
+  };
 }
 
 function openPopup(elem) {
   elem.classList.add('popup_opened');
+  resetCheckButtonSave(elem);
 }
+
 function closePopup(elem) {
   elem.classList.remove('popup_opened');
+  const form = elem.querySelector('.popup__form');
+  form.reset();
+  const erorrSpanList = elem.querySelectorAll('.popup__input-error');
+  erorrSpanList.forEach((errorSpan) => {
+    errorSpan.textContent = '';
+  });
+  const formElementList = elem.querySelectorAll('.popup__input');
+  formElementList.forEach((formElement) => {
+    formElement.classList.remove('popup__input_invalid');
+  });
 }
+
+function closePopupEscape (evt) {
+  if (evt.key === 'Escape') {
+    const popupOpen = document.querySelector('.popup_opened');
+    closePopup(popupOpen, evt);
+  };
+}
+
+function closePopupOverlay (evt) {
+  popups.forEach((popup) => {
+    if (evt.target === popup) {
+      const popupOpen = document.querySelector('.popup_opened');
+      closePopup(popupOpen, evt);
+    }
+  });
+}
+
 
 addButton.addEventListener('click', function() {
   openPopup(addPopup);
@@ -125,7 +165,9 @@ addButton.addEventListener('click', function() {
 editButton.addEventListener('click', function() {
   openPopup(editPopup);
   nameInput.value = userNameElement.textContent;
-  jobInput.value = userJobElement.textContent; 
+  jobInput.value = userJobElement.textContent;
 });
 cardForm.addEventListener('submit', handleElementFormSubmit);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
+document.addEventListener('keydown', closePopupEscape);
+document.addEventListener('click', closePopupOverlay);
