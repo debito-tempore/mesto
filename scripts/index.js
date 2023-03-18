@@ -116,36 +116,33 @@ function handleProfileFormSubmit (evt) {
   closePopup(editPopup);
 }
 
-function resetCheckButtonSave(elem) {
-  if (elem.id === 'edit-popup') {
-    const savePopupButton = elem.querySelector('.popup__save')
-    savePopupButton.disabled = false;
-  };
-}
-
 function openPopup(elem) {
   elem.classList.add('popup_opened');
-  resetCheckButtonSave(elem);
+  const inputs = elem.querySelectorAll('.popup__input');
+  const savePopupButton = elem.querySelector('.popup__save');
+  if (savePopupButton !== null) {
+    savePopupButton.disabled = false;
+  }
+  inputs.forEach((input) => {
+    const errorTextElement = document.querySelector(`${config.errorClassTemplate}${input.name}`);
+    hideInputError(errorTextElement, config.activeErrorClass);
+    input.classList.remove('popup__input_invalid');
+    if (!input.validity.valid) {
+      savePopupButton.disabled = true;
+    }
+  })
 }
 
 function closePopup(elem) {
   elem.classList.remove('popup_opened');
-  const form = elem.querySelector('.popup__form');
-  form.reset();
-  const erorrSpanList = elem.querySelectorAll('.popup__input-error');
-  erorrSpanList.forEach((errorSpan) => {
-    errorSpan.textContent = '';
-  });
-  const formElementList = elem.querySelectorAll('.popup__input');
-  formElementList.forEach((formElement) => {
-    formElement.classList.remove('popup__input_invalid');
-  });
 }
 
 function closePopupEscape (evt) {
   if (evt.key === 'Escape') {
     const popupOpen = document.querySelector('.popup_opened');
-    closePopup(popupOpen, evt);
+    if (popupOpen !==  null) {
+      closePopup(popupOpen, evt);
+    }
   };
 }
 
@@ -158,14 +155,14 @@ function closePopupOverlay (evt) {
   });
 }
 
-
 addButton.addEventListener('click', function() {
+  cardForm.reset();
   openPopup(addPopup);
 });
 editButton.addEventListener('click', function() {
-  openPopup(editPopup);
   nameInput.value = userNameElement.textContent;
   jobInput.value = userJobElement.textContent;
+  openPopup(editPopup);
 });
 cardForm.addEventListener('submit', handleElementFormSubmit);
 profileForm.addEventListener('submit', handleProfileFormSubmit);

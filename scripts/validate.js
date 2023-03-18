@@ -39,6 +39,8 @@ const hasInvalidInput = (inputList) => {
   return Array.from(inputList).some((input) => !input.validity.valid);
 }
 
+
+
 const toggleButtonState = (submitButton, inputList) => {
   if(!hasInvalidInput(inputList)) {
     enableButton(submitButton);
