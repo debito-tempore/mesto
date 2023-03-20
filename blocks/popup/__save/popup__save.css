@@ -23,6 +23,7 @@
 .popup__save:disabled {
   background: #E5E5E5;
   cursor: default;
+  pointer-events: none;
 }
 @media screen and (max-width: 500px) {
   .popup__save {
