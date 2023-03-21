@@ -166,4 +166,4 @@ editButton.addEventListener('click', function() {
 
 cardForm.addEventListener('submit', handleElementFormSubmit, cardForm.reset);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
-document.addEventListener('click', closePopupOverlay);
+closePopupOverlay();
