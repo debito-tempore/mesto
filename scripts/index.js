@@ -97,7 +97,6 @@ function handleElementFormSubmit (evt) {
   createCard(userCard);
   evt.target.reset();
   closePopup(addPopup);
-  evt.submitter.disabled = true;
 }
 
 function handleProfileFormSubmit (evt) {
@@ -112,13 +111,11 @@ function handleProfileFormSubmit (evt) {
 function openPopup(elem) {
   elem.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEscape);
-  document.addEventListener('click', closePopupOverlay);
 }
 
 function closePopup(elem) {
   elem.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEscape);
-  document.removeEventListener('click', closePopupOverlay);
 }
 
 function closePopupEscape (evt) {
@@ -169,3 +166,4 @@ editButton.addEventListener('click', function() {
 
 cardForm.addEventListener('submit', handleElementFormSubmit, cardForm.reset);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
+document.addEventListener('click', closePopupOverlay);
