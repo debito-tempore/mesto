@@ -59,20 +59,23 @@ const config = {
   invalidInputClass: 'popup__input_invalid'
 }
 
-const formList = document.querySelectorAll(config.formSelector);
-formList.forEach((form) => {
-  const formElement = new FormValidator(config, form)
-  formElement.enableValidation()
-});
+const formEdit = new FormValidator(config, document.forms["edit-profile-form"]);
+const formCard = new FormValidator(config, document.forms["add-element-form"]);
+formEdit.enableValidation();
+formCard.enableValidation();
 
-const createCard = (card) => {
-  const addCard = new Card(card, '.element-template', handleCardOpen);
+function createCard(item) {
+  const addCard = new Card(item, '.element-template', handleCardOpen)
   const cardElement = addCard.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
+  return cardElement
+}
+
+function prependCard(item) {
+  elements.prepend(item);
 }
 
 initialCards.forEach((card) => {
-  createCard(card);
+  prependCard(createCard(card));
  })
 
 
@@ -86,7 +89,7 @@ function handleElementFormSubmit (evt) {
     link: userLink,
     alt: userPlace
   }
-  createCard(userCard);
+  prependCard(createCard(userCard));
   evt.target.reset();
   closePopup(addPopup);
 }
@@ -151,18 +154,7 @@ editButton.addEventListener('click', function() {
   openPopup(editPopup);
   const inputs = editPopup.querySelectorAll('.popup__input');
   const savePopupButton = editPopup.querySelector('.popup__save');  
-  if (savePopupButton !== null) {
-    savePopupButton.disabled = false;
-  }
-  inputs.forEach((input) => {
-    const errorTextElement = editPopup.querySelector(`${config.errorClassTemplate}${input.name}`);
-    const validator = new FormValidator(config, profileForm)
-    validator.hideInputError(errorTextElement, config.activeErrorClass)
-    input.classList.remove(config.invalidInputClass);
-    if (!input.validity.valid) {
-      savePopupButton.disabled = true;
-    }
-  })  
+  formEdit.resetValidation();
 });
 
 cardForm.addEventListener('submit', handleElementFormSubmit, cardForm.reset);

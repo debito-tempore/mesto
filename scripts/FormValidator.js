@@ -62,6 +62,14 @@ _setEventListeners() {
   });
 }
 
+resetValidation() {
+  this._toggleButtonState();
+  this._inputList.forEach((inputElement) => {
+    this.hideInputError(inputElement);
+  })
+  this._checkInputValidity();
+}
+
 enableValidation() {
     this._setEventListeners();
   }
