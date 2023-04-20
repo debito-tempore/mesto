@@ -39,7 +39,7 @@ _checkInputValidity() {
       this.hideInputError(errorTextElement);
       input.classList.remove(this._setting.invalidInputClass);
     }
-  })
+  });
 }
 
 _toggleButtonState() {
@@ -48,7 +48,7 @@ _toggleButtonState() {
   } else {
     this._disableButton(this._submitButton);
   }
-}
+};
 
 _setEventListeners() {
   this._form.addEventListener('reset', () => {
@@ -73,4 +73,4 @@ resetValidation() {
 enableValidation() {
     this._setEventListeners();
   }
-}
+};

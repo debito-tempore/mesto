@@ -45,8 +45,7 @@ export class Card {
     this._element.querySelector('.element__title').textContent = this._name;
     this.likeButton = this._element.querySelector('.element__button-like');
     this.trashButton = this._element.querySelector('.element__button-delete');
-    this._setEventListeners();
-  
+    this._setEventListeners();  
     return this._element;
   }
 }
