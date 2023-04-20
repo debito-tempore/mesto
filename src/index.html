@@ -7,18 +7,16 @@
   <meta name="author" content="Елена Стародумова">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/src/pages/index.css">
-  <script type="module" src="/src/pages/index.js" defer></script>
   <title>Место</title>
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/header_logo.svg" alt="Логотип Место Россия">
+    <img class="header__logo" src="<%=require('./images/header_logo.svg')%>" alt="Логотип Место Россия">
   </header>
 <main class="content">
   <section class="profile">
     <div class="profile__about">
-      <img class="profile__avatar" src="./images/avatar.png" alt="Фото пользователя">
+      <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Фото пользователя">
       <div class="profile__info">
         <div class="profile__line">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
