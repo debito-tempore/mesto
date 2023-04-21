@@ -3,10 +3,10 @@ import './index.css';
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import {Popup} from '../components/Popup.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { initialCards } from '../components/constants';
 
 const nameInput = document.querySelector('[name="name"]');
 const jobInput = document.querySelector('[name="job"]');
@@ -19,39 +19,7 @@ const addPopup = document.querySelector('#add-popup');
 const addButton = document.querySelector('.profile__add-button');
 const editPopup = document.querySelector('#edit-popup');
 const editButton = document.querySelector('.profile__edit-button');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Фотография хребет абишира-ахуба архыз'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    alt: 'Фотография реки среди Уральских гор'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Фотография жилого района с высокоэтажками'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Фотография Камчатских гор'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Фотография рельсы уходят за горизонт'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Фотография горного побережья байкала'
-  }
-];
-export default initialCards;
+
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -61,19 +29,17 @@ const config = {
   invalidInputClass: 'popup__input_invalid'
 }
 
-const formEdit = new FormValidator(config, document.forms["edit-profile-form"]);
-const formCard = new FormValidator(config, document.forms["add-element-form"]);
-const newEditPopup = new Popup(editPopup);
-const newAddPopup = new Popup(addPopup);
-const handleCardClick = new PopupWithImage(imagePopup, openImage, openTitle);
-const submitEditForm = new PopupWithForm(editPopup, handleProfileFormSubmit);
-const submitAddForm = new PopupWithForm(addPopup, handleElementFormSubmit);
+const validatorEditProfile = new FormValidator(config, document.forms["edit-profile-form"]);
+const validatorAddCard = new FormValidator(config, document.forms["add-element-form"]);
+const popupImage = new PopupWithImage(imagePopup);
+const popupEditProfile = new PopupWithForm(editPopup, handleProfileFormSubmit);
+const popupAddCard = new PopupWithForm(addPopup, handleElementFormSubmit);
 const newUserInfo = new UserInfo({
   userNameSelector: userNameElement,    
   userJobSelector: userJobElement
 });
 const createCard = (item) => {  
-  const addCard = new Card(item, '.element-template', handleCardClick.open)
+  const addCard = new Card(item, '.element-template', popupImage.open)
   const cardElement = addCard.generateCard();
   return cardElement
 }
@@ -86,10 +52,10 @@ const newCards = new Section({
 '.elements'
 );
 
-newCards.renderItem();
+newCards.renderItems();
 
-formEdit.enableValidation();
-formCard.enableValidation();
+validatorEditProfile.enableValidation();
+validatorAddCard.enableValidation();
 
 function handleProfileFormSubmit (values) {
     newUserInfo.setUserInfo(values['name'], values['job'])
@@ -104,23 +70,17 @@ function handleElementFormSubmit (values) {
   );
 }
 
-
-submitEditForm.setEventListeners();
-submitAddForm.setEventListeners();
-
 editButton.addEventListener('click', function() { 
   nameInput.value = userNameElement.textContent;
   jobInput.value = userJobElement.textContent;
-  newEditPopup.open()
-  newEditPopup.setEventListeners()
-  formEdit.resetValidation();
+  popupEditProfile.open()  
+  validatorEditProfile.resetValidation();
 }) 
 
 
 addButton.addEventListener('click', function() {
-  newAddPopup.open();
-  newAddPopup.setEventListeners();
+  popupAddCard.open(); 
 }) 
   
-
-  
+popupEditProfile.setEventListeners();
+popupAddCard.setEventListeners(); 
